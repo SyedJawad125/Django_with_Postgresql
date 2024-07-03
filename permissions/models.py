@@ -1,6 +1,6 @@
 from django.db import models
 
-from backend.settings import AUTH_USER_MODEL
+# from backend.settings import AUTH_USER_MODEL
 
 # Create your models here.
 

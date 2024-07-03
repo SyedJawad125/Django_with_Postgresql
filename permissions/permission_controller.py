@@ -7,8 +7,6 @@ from utils.reusable_methods import get_first_error_message, generate_six_length_
 from rest_framework.response import Response
 from django.db.models import Sum, Count, Avg, F
 from utils.helper import create_response, paginate_data
-# from vehicle.serializer import serializer
-
 # from chat_site.settings import EMAIL_HOST_USER
 # from django.core.mail import send_mail
 
@@ -24,7 +22,6 @@ class RoleController:
             # request.data["role_added_by_user"] = request.user.guid
             # request.POST._mutable = False
 
-            # if request.user.role in ['admin','manager'] or request.user.is_superuser: # roles
             validated_data = RoleSerializer(data=request.data)
             if validated_data.is_valid():
                 response = validated_data.save()
@@ -32,9 +29,7 @@ class RoleController:
                 return Response({'data':response_data} , 200)
             else:
                 error_message = get_first_error_message(validated_data.errors, "UNSUCCESSFUL")
-                return Response({'data':error_message}, 400)
-            # else:
-            #     return Response({'data':"Permission Denaied"}, 400)  
+                return Response({'data':error_message}, 400) 
         except Exception as e:
             return Response({'error':str(e)}, 500)
     
@@ -74,7 +69,6 @@ class RoleController:
 
                     # updating the instance/record
                     serialized_data = RoleSerializer(instance, data=request.data, partial=True)
-                    # if request.user.role in ['admin','manager'] or request.user.is_superuser: # roles
                     if serialized_data.is_valid():
                         response = serialized_data.save()
                         response_data = RoleSerializer(response).data
@@ -82,8 +76,6 @@ class RoleController:
                     else:
                         error_message = get_first_error_message(serialized_data.errors, "UNSUCCESSFUL")
                         return Response({'data':error_message}, 400)
-                    # else:
-                    #     return Response({'data':"Permission Denaied"}, 400)
                 else:
                     return Response({"data":"NOT FOUND"}, 404)
             else:
@@ -116,8 +108,7 @@ class PermissionController:
             # request.POST._mutable = True
             # request.data["per_added_by_user"] = request.user.guid
             # request.POST._mutable = False
-            #
-            # # if request.user.role in ['admin','manager'] or request.user.is_superuser: # roles
+    
             validated_data = PermissionSerializer(data=request.data)
             if validated_data.is_valid():
                 response = validated_data.save()
@@ -126,8 +117,7 @@ class PermissionController:
             else:
                 error_message = get_first_error_message(validated_data.errors, "UNSUCCESSFUL")
                 return Response({'data':error_message}, 400)
-            # else:
-            #     return Response({'data':"Permission Denaied"}, 400)  
+              
         except Exception as e:
             return Response({'error':str(e)}, 500)
     
@@ -167,7 +157,7 @@ class PermissionController:
 
                     # updating the instance/record
                     serialized_data = PermissionSerializer(instance, data=request.data, partial=True)
-                    # if request.user.role in ['admin','manager'] or request.user.is_superuser: # roles
+                    
                     if serialized_data.is_valid():
                         response = serialized_data.save()
                         response_data = PermissionSerializer(response).data
@@ -175,8 +165,6 @@ class PermissionController:
                     else:
                         error_message = get_first_error_message(serialized_data.errors, "UNSUCCESSFUL")
                         return Response({'data':error_message}, 400)
-                    # else:
-                    #     return Response({'data':"Permission Denaied"}, 400)
                 else:
                     return Response({"data":"NOT FOUND"}, 404)
             else:
